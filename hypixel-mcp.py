@@ -88,7 +88,3 @@ def data_decode(data : str) -> str:
         decompressed_data = zlib.decompress(decoded_data)
     readable_data = decompressed_data.decode('utf-8', errors='ignore')
     return readable_data
-
-
-
-print(find_margins(top=10, instahourly=0.7, purse_requirement="dhruvninja"))
