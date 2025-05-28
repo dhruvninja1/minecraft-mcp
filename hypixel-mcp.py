@@ -3,10 +3,10 @@ import pprint
 import os
 import base64
 import zlib
-from fastmcp import Fastmcp
+from fastmcp import FastMCP
 
 
-mcp = Fastmcp("My minecraft mcp server")
+mcp = FastMCP("My minecraft mcp server")
 
 
 
