@@ -1,6 +1,8 @@
 import skyblockpy
 import pprint
 import os
+import base64
+import zlib
 
 API_KEY_VAR_NAME = "HYPIXEL_API_KEY"
 hypixel_api_key = os.getenv(API_KEY_VAR_NAME)
@@ -39,21 +41,31 @@ def find_margins(product_name="all"):
 
 
 
-def get_purse(username):
+def get_purse(username, profile="all"):
     playerdata = skyblock.get_player_profile(username)
     uuid = skyblock.get_uuid(username)
-    
+    profile = profile.capitalize()
     coins = {}
 
     for x in range(len(playerdata["profiles"])):
-        print(x)
         try:
             coins[playerdata["profiles"][x]["cute_name"]] = playerdata["profiles"][x]["members"][uuid]["currencies"]["coin_purse"]
         except KeyError:
             coins[playerdata["profiles"][x]["cute_name"]] = None
-    return coins
+    if profile != "All":
+        return coins[profile]
+    else:
+        return coins
 
+def data_decode(data):
+    decoded_data = base64.b64decode(data)
 
+    try:
+        decompressed_data = zlib.decompress(decoded_data, 16 + zlib.MAX_WBITS)
+    except zlib.error as e:
+        decompressed_data = zlib.decompress(decoded_data)
+    readable_data = decompressed_data.decode('utf-8', errors='ignore')
+    return readable_data
 
 
 
