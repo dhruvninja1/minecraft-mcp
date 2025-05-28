@@ -3,6 +3,12 @@ import pprint
 import os
 import base64
 import zlib
+from fastmcp import Fastmcp
+
+
+mcp = Fastmcp("My minecraft mcp server")
+
+
 
 API_KEY_VAR_NAME = "HYPIXEL_API_KEY"
 hypixel_api_key = os.getenv(API_KEY_VAR_NAME)
@@ -27,7 +33,7 @@ bzdata = skyblock.get_bazaar_data()["products"]
 
 
 
-
+@mcp.tool()
 def find_margins(product_name : str ="all", top: int = -1, instahourly: float = 0, purse_requirement = "no") -> list or int: #type: ignore
     if purse_requirement != "no":
         purse = get_purse("dhruvninja")
@@ -58,6 +64,7 @@ def find_margins(product_name : str ="all", top: int = -1, instahourly: float = 
     else:
         return int(float(bzdata[product_name]["quick_status"]["buyPrice"]) - float(bzdata[product_name]["quick_status"]["sellPrice"]))
 
+@mcp.tool()
 def get_purse(username : str, profile : str="selected") -> dict or int: #type: ignore
     playerdata = skyblock.get_player_profile(username)
     uuid = skyblock.get_uuid(username)
@@ -79,6 +86,7 @@ def get_purse(username : str, profile : str="selected") -> dict or int: #type: i
                 break
         return int(playerdata["profiles"][selected]["members"][uuid]["currencies"]["coin_purse"])
 
+@mcp.tool()
 def data_decode(data : str) -> str: 
     decoded_data = base64.b64decode(data)
 
@@ -88,3 +96,7 @@ def data_decode(data : str) -> str:
         decompressed_data = zlib.decompress(decoded_data)
     readable_data = decompressed_data.decode('utf-8', errors='ignore')
     return readable_data
+
+
+if __name__ == "__main__":
+      mcp.run()
