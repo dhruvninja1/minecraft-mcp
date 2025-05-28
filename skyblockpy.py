@@ -129,7 +129,7 @@ class Skyblock:
     def get_player_profile(self, player_name: str) -> dict:
         """Returns a `dict` of profile data on a player."""
         player_uuid = self.get_uuid(player_name)
-        api_request = requests.get(f"https://api.hypixel.net/skyblock/profiles?key={self.api_key}&uuid={player_uuid}").content
+        api_request = requests.get(f"https://api.hypixel.net/v2/skyblock/profiles?key={self.api_key}&uuid={player_uuid}").content
         player_profile_data = parse(api_request)
         return player_profile_data
 

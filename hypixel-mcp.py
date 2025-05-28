@@ -36,3 +36,24 @@ def find_margins(product_name="all"):
         return(float(bzdata[product_name]["quick_status"]["sellPrice"]) - float(bzdata[product_name]["quick_status"]["buyPrice"]))
     
 
+
+
+
+def get_purse(username):
+    playerdata = skyblock.get_player_profile(username)
+    uuid = skyblock.get_uuid(username)
+    
+    coins = {}
+
+    for x in range(len(playerdata["profiles"])):
+        print(x)
+        try:
+            coins[playerdata["profiles"][x]["cute_name"]] = playerdata["profiles"][x]["members"][uuid]["currencies"]["coin_purse"]
+        except KeyError:
+            coins[playerdata["profiles"][x]["cute_name"]] = None
+    return coins
+
+
+
+
+
