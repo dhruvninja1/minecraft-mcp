@@ -13,14 +13,7 @@ mcp = FastMCP("My minecraft mcp server")
 API_KEY_VAR_NAME = "HYPIXEL_API_KEY"
 hypixel_api_key = os.getenv(API_KEY_VAR_NAME)
 
-if hypixel_api_key:
-    print(f"Successfully loaded API Key from environment variable")
-else:
-    print(f"Error: Environment variable '{API_KEY_VAR_NAME}' not found.")
-    print("Please set it before running this script.")
-    print("Example (Linux/macOS): export HYPIXEL_API_KEY=\"your_key_here\"")
-    print("Example (Windows CMD): set HYPIXEL_API_KEY=\"your_key_here\"")
-    exit()
+
 
 
 skyblock = skyblockpy.Skyblock(hypixel_api_key)
